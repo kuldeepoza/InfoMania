@@ -1,4 +1,6 @@
 // internal app notifications key
+import * as rssParser from "react-native-rss-parser";
+
 export const notificationKey = {
     LOGOUT: 'LOGOUT',
 };
@@ -18,3 +20,16 @@ export const ResponseCode = {
     NO_INTERNET: 522,
     BAD_GATEWAY: 502,
 };
+
+const rssFeedParse = (url) => {
+   return fetch(url)
+        .then((response) => response.text())
+        .then((responseData) => rssParser.parse(responseData))
+        .then((rss) => {
+            return rss.items
+        })
+};
+
+export default {
+    rssFeedParse
+}

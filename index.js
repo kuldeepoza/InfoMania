@@ -7,6 +7,7 @@ import SignUp from "./src/screens/SignUp";
 import Profile from "./src/screens/Profile";
 import Channel from "./src/screens/Channel";
 import Home from "./src/screens/Home";
+import TopStories from "./src/screens/TopStories";
 
-AppRegistry.registerComponent('InfoMania', () => Home);
+AppRegistry.registerComponent('InfoMania', () => TopStories);
 
