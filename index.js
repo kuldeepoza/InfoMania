@@ -9,5 +9,5 @@ import Channel from "./src/screens/Channel";
 import Home from "./src/screens/Home";
 import TopStories from "./src/screens/TopStories";
 
-AppRegistry.registerComponent('InfoMania', () => TopStories);
+AppRegistry.registerComponent('InfoMania', () => App);
 

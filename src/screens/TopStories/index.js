@@ -22,6 +22,10 @@ export default class TopStories extends React.Component {
             data: [],
             description: ''
         };
+        this.setState({
+            data: utils.rssFeedParse('http://feeds.reuters.com/reuters/INhollywood')
+        });
+        console.log("====--hhh------------", this.state.data);
 
         /* let title = rss.items.map((item) => {
              return item.title
@@ -137,9 +141,11 @@ export default class TopStories extends React.Component {
     }
 
     _renderListView = (item) => {
-        return (<TouchableOpacity activeOpacity={0.6} onPress={() => this.listPopupClick(item)}>
+        console.log("====--------------", item.title);
+        return (
+            <TouchableOpacity activeOpacity={0.6} onPress={() => this.listPopupClick(item)}>
                 <View style={styles.listView}>
-                  {/*    <Image style={styles.listImage}
+                    {/*    <Image style={styles.listImage}
                            source={{uri: (item.images)}}/>*/}
                     <View style={styles.detailView}>
                         <View style={styles.dropDateView}>
@@ -195,7 +201,7 @@ export default class TopStories extends React.Component {
                 <View style={styles.mainContainer}>
 
                     <FlatList
-                        data={utils.rssFeedParse('http://feeds.reuters.com/reuters/INtopNews')}
+                        data={this.state.data}
                         renderItem={({item}) => this._renderListView(item)}
                     />
                 </View>

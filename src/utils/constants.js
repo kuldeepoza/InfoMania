@@ -22,7 +22,7 @@ export const ResponseCode = {
 };
 
 const rssFeedParse = (url) => {
-   return fetch(url)
+    return fetch(url)
         .then((response) => response.text())
         .then((responseData) => rssParser.parse(responseData))
         .then((rss) => {
