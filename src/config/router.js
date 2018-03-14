@@ -208,6 +208,16 @@ export const AuthorizedNavigator = StackNavigator({
 
 });
 export const UnauthorizedNavigator = StackNavigator({
+    Login: {
+        screen: Login,
+        navigationOptions: {
+            title: 'Login',
+            headerTintColor: Color.WHITE,
+            headerStyle: {
+                backgroundColor: Color.PRIMARY
+            },
+        }
+    },
     AppInformation: {
         screen: AppInformation,
         navigationOptions: {
@@ -219,16 +229,7 @@ export const UnauthorizedNavigator = StackNavigator({
             },
         }
     },
-    Login: {
-        screen: Login,
-        navigationOptions: {
-            title: 'Login',
-            headerTintColor: Color.WHITE,
-            headerStyle: {
-                backgroundColor: Color.PRIMARY
-            },
-        }
-    },
+
     Signup: {
         screen: SignUp,
         navigationOptions: {

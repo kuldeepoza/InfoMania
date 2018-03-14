@@ -21,15 +21,11 @@ export const ResponseCode = {
     BAD_GATEWAY: 502,
 };
 
-const rssFeedParse = (url) => {
+export default rssFeedParse = (url) => {
     return fetch(url)
         .then((response) => response.text())
         .then((responseData) => rssParser.parse(responseData))
         .then((rss) => {
-            return rss.items
+           return  rss.items
         })
 };
-
-export default {
-    rssFeedParse
-}

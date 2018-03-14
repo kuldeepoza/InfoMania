@@ -8,8 +8,6 @@ import RoundButton from "../../components/RoundButton";
 
 export default class AppInformation extends React.Component {
     render() {
-
-
         return (
             <Swiper
                 style={styles.containerAppInfo}
