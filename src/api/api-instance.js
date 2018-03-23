@@ -1,15 +1,15 @@
 import axios from 'axios';
-import store from 'src/redux/store';
+import store from '../redux/store';
 import {
     DeviceEventEmitter,
 } from 'react-native';
-import {notificationKey} from 'src/utils/constants';
-import {logout} from "src/redux/action";
-import {ResponseCode} from "src/utils/constants";
+import {notificationKey} from '../utils/constants';
+import {logout} from "../redux/action";
+import {ResponseCode} from "../utils/constants";
 
 
 let axiosInstance = axios.create({
-    baseURL: "",
+    baseURL: "https://newsapi.org/v2/",
     timeout: 15000
 });
 store.subscribe(listener);

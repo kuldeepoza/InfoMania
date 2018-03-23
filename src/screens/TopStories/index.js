@@ -4,12 +4,11 @@ import styles from './styles';
 import Drawer from 'react-native-drawer';
 import {Color} from "../../utils/color";
 import RoundButton from "../../components/RoundButton";
-import * as rssParser from "react-native-rss-parser";
-
+import {ResponseCode} from "../../utils/constants";
+import {API_CONTENT_LIST, APIRequest} from "../../api";
 export default class TopStories extends React.Component {
     closeControlPanel = () => {
         this._drawer.close()
-
     };
 
     openControlPanel = () => {
@@ -17,15 +16,57 @@ export default class TopStories extends React.Component {
     };
 
     componentDidMount() {
-        fetch('http://feeds.reuters.com/reuters/INhollywood')
-            .then((response) => response.text())
-            .then((responseData) => rssParser.parse(responseData))
-            .then((rss) => {
-                this.setState({
-                    data: rss.items
-                });
-            })
+        this.storeContent();
     }
+
+    storeContent = () => {
+        new APIRequest.Builder()
+            .get()
+            .setReqId(1)
+            .reqURL("everything?q=bitcoin&apiKey=7018f5481e33422bad7ade4ba203e772")
+            .response(this.onResponse)
+            .error(this.onError)
+            .build()
+            .doRequest();
+    };
+    onResponse = (response, reqId) => {
+        switch (reqId) {
+            case 1:
+                switch (response.status) {
+                    case ResponseCode.OK:
+                        console.log("response===============", response);
+                        break;
+                }
+                break;
+        }
+    };
+
+    onError = (error, reqId) => {
+        switch (error.status) {
+            case ResponseCode.UNPROCESSABLE_REQUEST:
+                break;
+            case ResponseCode.NO_INTERNET:
+                break;
+        }
+    };
+
+    /*  componentDidMount() {
+
+
+
+       import NewsAPI from 'newsapi'
+       const newsapi = new NewsAPI('7018f5481e33422bad7ade4ba203e772');
+          newsapi.v2.topHeadlines({
+              sources: 'bbc-news,the-verge',
+              q: 'trump',
+              category: 'politics',
+              language: 'en',
+              country: 'us'
+          }).then(response => {
+              console.log(response);
+          });
+
+      }*/
 
     constructor(props) {
         super(props);
@@ -36,12 +77,11 @@ export default class TopStories extends React.Component {
     }
 
     _renderListView = (item) => {
-        console.log("====--------------", item.title);
         return (
             <TouchableOpacity activeOpacity={0.6} onPress={() => this.listPopupClick(item)}>
                 <View style={styles.listView}>
-                    {/*    <Image style={styles.listImage}
-                           source={{uri: (item.images)}}/>*/}
+                    <Image style={styles.listImage}
+                           source={{uri: (item.itunes.image)}}/>
                     <View style={styles.detailView}>
                         <View style={styles.dropDateView}>
                             <Text style={styles.date}>Dropof : {item.title}</Text>

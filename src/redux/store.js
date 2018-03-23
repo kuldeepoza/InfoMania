@@ -1,7 +1,7 @@
 import {createStore, applyMiddleware, compose} from 'redux';
 import {persistStore, autoRehydrate} from 'redux-persist';
 import {AsyncStorage} from 'react-native';
-import reducer from 'src/redux/reducer';
+import reducer from '../redux/reducer';
 
 const middleWare = [];
 const store = createStore(

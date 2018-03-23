@@ -1,7 +1,7 @@
 
 import {Color} from "../utils/color";
 import {StackNavigator, TabNavigator} from "react-navigation";
-import * as React from "react";
+import React from 'react';
 import {Image, TouchableOpacity,Alert} from "react-native";
 import TopStories from "../screens/TopStories";
 import Trending from "../screens/Trending";
@@ -257,14 +257,15 @@ export const UnauthorizedNavigator = StackNavigator({
 });
 
 export const AppNavigator = StackNavigator({
-    Unauthorized: {
-        screen: UnauthorizedNavigator, navigationOptions: {
-            header: null
-        },
-    },
     Authorized: {
         screen: AuthorizedNavigator, navigationOptions: {
             header: null
         }
     },
+    Unauthorized: {
+        screen: UnauthorizedNavigator, navigationOptions: {
+            header: null
+        },
+    },
+
 });

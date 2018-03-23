@@ -1,8 +1,7 @@
 import {
     SET_TOKEN,
     SET_USER,
-} from "src/redux/action-types";
-import {REHYDRATE} from 'redux-persist/constants';
+} from "../redux/action-types";
 
 let initialState = {
     user: null,
@@ -11,4 +10,3 @@ let initialState = {
 
 export const setToken = (token) => ({type: SET_TOKEN, token});
 export const setUser = (user) => ({type: SET_USER, user});
-export const logout = () => ({type: REHYDRATE, payload: initialState});

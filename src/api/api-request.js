@@ -1,6 +1,6 @@
 import {axiosInstance} from "./api-instance";
-import {isNetworkConnected} from "src/utils/index";
-import {ResponseCode} from "src/utils/constants";
+import {isNetworkConnected} from "../utils/index";
+import {ResponseCode} from "../utils/constants";
 import Utils from "../utils";
 
 const METHOD_GET = "get";
