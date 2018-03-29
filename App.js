@@ -1,20 +1,32 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+import React from 'react';
+import {AppNavigator} from "src/config/router";
+import {Provider} from 'react-redux';
+import store from 'src/redux/store';
+import {persistStore} from "redux-persist";
 
-import React, { Component } from 'react';
-import {
-  View
-} from 'react-native';
-import {AppNavigator} from "./src/config/router";
+class App extends React.Component {
+    constructor(props) {
+        super(props);
 
+        this.state = {
+            isProjectCreated: false
+        };
+    }
 
-export default class App extends Component<{}> {
-  render() {
-    return (
-    <AppNavigator/>
-    );
-  }
+    componentWillMount() {
+        persistStore(store, {storage: AsyncStorage}, () => {
+
+        });
+    }
+
+    render() {
+        const Layout = AppNavigator();
+        return (
+            <Provider store={store}>
+                <Layout/>
+            </Provider>
+        );
+    }
 }
+
+export default App;

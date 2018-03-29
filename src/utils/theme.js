@@ -1,4 +1,4 @@
-import React from 'react';
+    import React from 'react';
 import {PixelRatio, Platform, Dimensions} from 'react-native';
 
 const {width, height} = Dimensions.get('window');

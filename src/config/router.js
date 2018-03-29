@@ -1,6 +1,6 @@
 
 import {Color} from "../utils/color";
-import {StackNavigator, TabNavigator} from "react-navigation";
+import {DrawerNavigator, StackNavigator, TabNavigator} from "react-navigation";
 import React from 'react';
 import {Image, TouchableOpacity,Alert} from "react-native";
 import TopStories from "../screens/TopStories";
@@ -23,6 +23,54 @@ import Saved from "../screens/Saved";
 import Favourite from "../screens/Favourite";
 import YoutubeVideo from "../screens/YoutubeVideo";
 import Profile from "../screens/Profile";
+import TVSideBar from "src/components/TVDrawer";
+import Icon from "react-native-vector-icons/RNIMigration";
+import fontLarge from "src/utils/theme"
+import {relativeWidth,fontXSmall} from "src/utils/dimensions"
+
+const navigationTitle = {
+    color: Color.WHITE,
+    alignSelf: 'center',
+    fontSize: fontLarge
+};
+
+const navigationStyle = {
+    backgroundColor: Color.PRIMARY,
+};
+
+const drawerContentItems = {
+    activeTintColor: Color.PRIMARY,
+    inactiveTintColor: Color.BLACK,
+};
+export const tvStack = StackNavigator({
+    TopStories: {
+        screen: TopStories,
+        navigationOptions: ({navigation}) => ({
+            title:"Top",
+            drawerLockMode: 'locked-closed',
+        })
+    },
+}, {
+    navigationOptions: ({navigation}) => ({
+        headerVisible: true,
+        headerTitleStyle: navigationTitle,
+        headerStyle: navigationStyle,
+        headerBackTitle: null,
+        headerTintColor: Color.WHITE,
+    }),
+});
+export const tvDrawer = DrawerNavigator({
+        tvStack: {
+            screen: tvStack
+        }
+    },
+    {
+        drawerWidth: relativeWidth(70),
+        initialRouteName: 'tvStack',
+        contentOptions: drawerContentItems,
+        contentComponent: props => <TVSideBar {...props} />
+    }
+);
 
 
 const tabRouteConfig = {
@@ -127,8 +175,64 @@ manuClick=()=>
 {
     Alert.alert("Drawer Open");
 };
-export const AuthorizedNavigator = StackNavigator({
 
+
+
+export const homeTab = TabNavigator({
+    tvDrawer: {
+        screen: tvDrawer,
+        navigationOptions: ({navigation}) => ({
+            title: "data",
+            header: null,
+            headerVisible: false,
+            headerTitleStyle: navigationTitle,
+            headerStyle: navigationStyle,
+            headerBackTitle: null,
+            headerTintColor: Color.WHITE,
+            tabBarIcon: ({focused, tintColor}) => <Icon name='rented-movies' color={tintColor} size={25}/>,
+           /* headerLeft: renderDrawerIcon(navigation)*/
+        }),
+    }
+}, {
+
+    ...TabNavigator.Presets.Default,
+    tabBarOptions: {
+        style: {
+            backgroundColor: Color.PRIMARY,
+            paddingVertical: 0
+        },
+        indicatorStyle: {
+            height: 0
+        },
+        labelStyle: {
+            marginVertical: 0,
+            fontSize: fontXSmall
+        },
+        upperCaseLabel: false,
+        showIcon: true,
+        activeTintColor: Color.BLUE
+
+    },
+    initialRouteName: "tvDrawer",
+    lazy: true,
+    swipeEnabled: false,
+    tabBarPosition: 'bottom',
+    animationEnabled: false,
+
+});
+
+
+export const Authenticated = StackNavigator({
+    homeTab: {
+        screen: homeTab,
+    }
+});
+
+
+
+
+
+export const AuthorizedNavigator = StackNavigator({
     Schedule: {
         screen: homeTabBar,
         navigationOptions: {
@@ -258,7 +362,7 @@ export const UnauthorizedNavigator = StackNavigator({
 
 export const AppNavigator = StackNavigator({
     Authorized: {
-        screen: AuthorizedNavigator, navigationOptions: {
+        screen: Authenticated, navigationOptions: {
             header: null
         }
     },

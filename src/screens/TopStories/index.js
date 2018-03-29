@@ -4,8 +4,8 @@ import styles from './styles';
 import Drawer from 'react-native-drawer';
 import {Color} from "../../utils/color";
 import RoundButton from "../../components/RoundButton";
-import {ResponseCode} from "../../utils/constants";
-import {API_CONTENT_LIST, APIRequest} from "../../api";
+import axios from 'axios';
+
 export default class TopStories extends React.Component {
     closeControlPanel = () => {
         this._drawer.close()
@@ -20,40 +20,19 @@ export default class TopStories extends React.Component {
     }
 
     storeContent = () => {
-        new APIRequest.Builder()
-            .get()
-            .setReqId(1)
-            .reqURL("everything?q=bitcoin&apiKey=7018f5481e33422bad7ade4ba203e772")
-            .response(this.onResponse)
-            .error(this.onError)
-            .build()
-            .doRequest();
-    };
-    onResponse = (response, reqId) => {
-        switch (reqId) {
-            case 1:
-                switch (response.status) {
-                    case ResponseCode.OK:
-                        console.log("response===============", response);
-                        break;
-                }
-                break;
-        }
-    };
-
-    onError = (error, reqId) => {
-        switch (error.status) {
-            case ResponseCode.UNPROCESSABLE_REQUEST:
-                break;
-            case ResponseCode.NO_INTERNET:
-                break;
-        }
+        axios.get('https://newsapi.org/v2/top-headlines?q=sports&c&apiKey=7018f5481e33422bad7ade4ba203e772')
+            .then((response)=> {
+                this.setState({
+                    data:response
+                });
+                console.log("eeeeeeeee", response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     };
 
     /*  componentDidMount() {
-
-
-
        import NewsAPI from 'newsapi'
        const newsapi = new NewsAPI('7018f5481e33422bad7ade4ba203e772');
           newsapi.v2.topHeadlines({
