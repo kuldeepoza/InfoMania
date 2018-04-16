@@ -62,6 +62,7 @@ export const tvStack = StackNavigator({
 export const tvDrawer = DrawerNavigator({
         tvStack: {
             screen: tvStack
+
         }
     },
     {
